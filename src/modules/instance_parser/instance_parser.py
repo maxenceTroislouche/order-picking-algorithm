@@ -160,13 +160,13 @@ class InstanceParserModule(BaseInstanceParserModule):
 
             line = self.get_next_line(f)
             arcs = []
-            while line.strip() != "":
+            while not check_line_is_whitespace(line):
                 arcs.append(self.get_arc_from_line(line))
                 line = self.get_next_line(f, allow_whitespace_lines=True)
 
             line = self.get_next_line(f)
             shortest_paths = []
-            while line.strip() != "":
+            while not check_line_is_whitespace(line):
                 shortest_paths.append(self.get_shortest_path_from_line(line))
                 line = self.get_next_line(f, allow_whitespace_lines=True)
 
