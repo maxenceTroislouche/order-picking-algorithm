@@ -1,0 +1,7 @@
+instance_file,solution_file,number_of_trolleys,number_of_boxes,total_distance
+..\data\instances\instance_0116_131933_Z1.txt,..\data\solutions\instance_0116_131933_Z1_sol.txt,13,76,3223.8
+..\data\instances\instance_0116_131933_Z2.txt,..\data\solutions\instance_0116_131933_Z2_sol.txt,-1,-1,-1
+..\data\instances\instance_0116_131936_Z1.txt,..\data\solutions\instance_0116_131936_Z1_sol.txt,-1,-1,-1
+..\data\instances\instance_0116_131936_Z2.txt,..\data\solutions\instance_0116_131936_Z2_sol.txt,-1,-1,-1
+..\data\instances\instance_0116_131940_Z1.txt,..\data\solutions\instance_0116_131940_Z1_sol.txt,-1,-1,-1
+..\data\instances\instance_0116_131940_Z2.txt,..\data\solutions\instance_0116_131940_Z2_sol.txt,-1,-1,-1

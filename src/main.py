@@ -13,6 +13,17 @@ from src.modules.organise_boxes.OrganiseBoxesDummy import OrganiseBoxesDummy
 from src.modules.organise_boxes.base import BaseOrganiseBoxesModule
 from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 from src.modules.organise_trolleys.dummy import DummyOrganiseTrolleysModule
+from src.utils.checker import get_checker_data, write_results
+from src.utils.instance import get_instance_files, get_solution_file_path
+
+
+def execute_workflow_dummy(instance_file_path: Path, solution_file_path: Path):
+    instance_data = InstanceParserModule(instance_file_path).run()
+    boxes = OrganiseBoxesDummy(instance_data).run()
+    CheckBoxesModule(instance_data, boxes).run()
+    trolleys = DummyOrganiseTrolleysModule(instance_data, boxes).run()
+    CheckTrolleysModule(instance_data, boxes, trolleys).run()
+    ExportSolutionModule(solution_file_path, instance_data, boxes, trolleys).run()
 
 
 def execute_workflow(
@@ -39,8 +50,29 @@ def execute_workflow(
 
 
 if __name__ == '__main__':
-    INSTANCE_FILE_PATH = Path('data/instance.txt')
-    SOLUTION_FILE_PATH = Path('data/solution.txt')
+    INSTANCE_DIRECTORY = Path('../data/instances')
+    SOLUTION_DIRECTORY = Path('../data/solutions')
+    RESULT_FILE = Path('results_dummy.csv')
 
-    execute_workflow(INSTANCE_FILE_PATH, SOLUTION_FILE_PATH, InstanceParserModule, OrganiseBoxesDummy, CheckBoxesModule,
-                     DummyOrganiseTrolleysModule, CheckTrolleysModule, ExportSolutionModule)
+    # list instances files
+    instance_files = get_instance_files(INSTANCE_DIRECTORY)
+    instance_and_solution_files = []
+
+    for instance_file in instance_files:
+        # create solution file path from instance file path
+        solution_file = get_solution_file_path(SOLUTION_DIRECTORY, instance_file)
+        instance_and_solution_files.append((instance_file, solution_file))
+
+        # execute workflow for each instance file
+        execute_workflow_dummy(instance_file, solution_file)
+
+    checker_data = []
+
+    for instance_file, solution_file in instance_and_solution_files:
+        # check each solution file
+        number_of_trolleys, number_of_boxes, total_distance = get_checker_data(instance_file, solution_file)
+
+        checker_data.append((instance_file, solution_file, number_of_trolleys, number_of_boxes, total_distance))
+
+    # store results in a csv file
+    write_results(checker_data, Path(RESULT_FILE))
