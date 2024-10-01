@@ -2,9 +2,12 @@ from pathlib import Path
 from typing import Type
 
 from src.modules.check_boxes_are_valid.base import BaseCheckBoxesAreValidModule
+from src.modules.check_boxes_are_valid.check_boxes_module import CheckBoxesModule
 from src.modules.check_trolleys_are_valid.base import BaseCheckTrolleysAreValidModule
+from src.modules.check_trolleys_are_valid.check_trolleys_module import CheckTrolleysModule
 from src.modules.export_solution.base import BaseExportSolutionModule
 from src.modules.instance_parser.base import BaseInstanceParserModule
+from src.modules.instance_parser.instance_parser import InstanceParserModule
 from src.modules.organise_boxes.base import BaseOrganiseBoxesModule
 from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 
@@ -34,5 +37,5 @@ def execute_workflow(
 
 
 if __name__ == '__main__':
-    execute_workflow(BaseInstanceParserModule, BaseOrganiseBoxesModule, BaseCheckBoxesAreValidModule,
-                     BaseOrganiseTrolleysModule, BaseCheckTrolleysAreValidModule, BaseExportSolutionModule)
+    execute_workflow(InstanceParserModule, BaseOrganiseBoxesModule, CheckBoxesModule,
+                     BaseOrganiseTrolleysModule, CheckTrolleysModule, BaseExportSolutionModule)
