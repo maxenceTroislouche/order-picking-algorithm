@@ -5,26 +5,27 @@ from src.modules.export_solution.base import BaseExportSolutionModule
 
 
 class ExportSolutionModule(BaseExportSolutionModule):
-    file_string: str = ""
+    file_string: list[str] = []
 
     def write_file_string_to_file(self) -> NoReturn:
         with self.solution_filepath.open("w") as file:
-            file.write(self.file_string)
+            file.writelines(s + "\n" for s in self.file_string)
 
     def add_number_of_trolleys(self, trolleys: List[Trolley]):
-        self.file_string += f"//Nb tournées\n{len(trolleys)}\n"
+        self.file_string.append(f"//Nb tournees")
+        self.file_string.append(f"{len(trolleys)}")
 
     def add_trolley_data(self, trolley: Trolley) -> NoReturn:
-        self.file_string += "//idTournée nbColis\n"
-        self.file_string += f"{trolley.id} {len(trolley.boxes)}\n"
-        self.file_string += "//IdColis IdCommandeInColis NbProducts IdProd1 QtyProd1 IdProd2 QtyProd2 ...\n"
+        self.file_string.append(f"//idTournee nbColis")
+        self.file_string.append(f"{trolley.id} {len(trolley.boxes)}")
+        self.file_string.append(f"//IdColis IdCommandeInColis NbProducts IdProd1 QtyProd1 IdProd2 QtyProd2 ...")
         for box in trolley.boxes:
-            nb_products = sum(pq.quantity for pq in box.product_quantity_pairs)
-
-            self.file_string += f"{box.id} {box.order.order_id} {nb_products} "
+            nb_products = len(box.product_quantity_pairs)
+            tmp_string = ""
+            tmp_string += f"{box.id} {box.order.order_id} {nb_products} "
             for pq in box.product_quantity_pairs:
-                self.file_string += f"{pq.product.product_id} {pq.quantity} "
-            self.file_string += "\n"
+                tmp_string += f"{pq.product.product_id} {pq.quantity} "
+            self.file_string.append(tmp_string)
 
     def run(self) -> NoReturn:
         self.add_number_of_trolleys(self.trolleys)

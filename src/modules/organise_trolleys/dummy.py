@@ -18,3 +18,5 @@ class DummyOrganiseTrolleysModule(BaseOrganiseTrolleysModule):
                 current_trolley += 1
 
             trolleys[current_trolley].boxes.append(box)
+
+        return trolleys

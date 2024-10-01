@@ -11,7 +11,7 @@ from src.modules.export_solution.export_solution_module import ExportSolutionMod
 
 
 class TestExportSolutionModule(unittest.TestCase):
-    solution_filepath = Path('solution.txt')
+    solution_filepath = Path('instance_sol.txt')
     instance_data = InstanceData(1, 1, 1, 2, 1, 1, 1, [], 1, [], 1, 1, 1, [], [], [])
     order = Order(1, 1, 1, [])
     boxes = []
