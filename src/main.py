@@ -14,6 +14,7 @@ from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 INSTANCE_FILE_PATH = Path("../data/instances/instance.txt")
 SOLUTION_FILE_PATH = Path("../data/solutions/solution.txt")
 
+
 def execute_workflow(
         instance_parser_module_cls: Type[BaseInstanceParserModule],
         organise_boxes_module_cls: Type[BaseOrganiseBoxesModule],
