@@ -11,9 +11,8 @@ from src.modules.instance_parser.instance_parser import InstanceParserModule
 from src.modules.organise_boxes.base import BaseOrganiseBoxesModule
 from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 
-INSTANCE_FILE_PATH = Path("instance.txt")
-SOLUTION_FILE_PATH = Path("solution.txt")
-
+INSTANCE_FILE_PATH = Path("../data/instances/instance.txt")
+SOLUTION_FILE_PATH = Path("../data/solutions/solution.txt")
 
 def execute_workflow(
         instance_parser_module_cls: Type[BaseInstanceParserModule],
