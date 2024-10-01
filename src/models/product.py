@@ -12,3 +12,6 @@ class Product:
         self.location_id = location_id
         self.weight = weight
         self.volume = volume
+
+    def __eq__(self, other):
+        return self.product_id == other.product_id
