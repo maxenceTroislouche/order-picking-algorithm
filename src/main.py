@@ -6,6 +6,7 @@ from src.modules.check_boxes_are_valid.check_boxes_module import CheckBoxesModul
 from src.modules.check_trolleys_are_valid.base import BaseCheckTrolleysAreValidModule
 from src.modules.check_trolleys_are_valid.check_trolleys_module import CheckTrolleysModule
 from src.modules.export_solution.base import BaseExportSolutionModule
+from src.modules.export_solution.export_solution_module import ExportSolutionModule
 from src.modules.instance_parser.base import BaseInstanceParserModule
 from src.modules.instance_parser.instance_parser import InstanceParserModule
 from src.modules.organise_boxes.base import BaseOrganiseBoxesModule
@@ -38,4 +39,4 @@ def execute_workflow(
 
 if __name__ == '__main__':
     execute_workflow(InstanceParserModule, BaseOrganiseBoxesModule, CheckBoxesModule,
-                     BaseOrganiseTrolleysModule, CheckTrolleysModule, BaseExportSolutionModule)
+                     BaseOrganiseTrolleysModule, CheckTrolleysModule, ExportSolutionModule)
