@@ -1,7 +1,7 @@
 instance_file,solution_file,number_of_trolleys,number_of_boxes,total_distance
 ..\data\instances\instance_0116_131933_Z1.txt,..\data\solutions\instance_0116_131933_Z1_sol.txt,13,76,3223.8
-..\data\instances\instance_0116_131933_Z2.txt,..\data\solutions\instance_0116_131933_Z2_sol.txt,-1,-1,-1
-..\data\instances\instance_0116_131936_Z1.txt,..\data\solutions\instance_0116_131936_Z1_sol.txt,-1,-1,-1
-..\data\instances\instance_0116_131936_Z2.txt,..\data\solutions\instance_0116_131936_Z2_sol.txt,-1,-1,-1
-..\data\instances\instance_0116_131940_Z1.txt,..\data\solutions\instance_0116_131940_Z1_sol.txt,-1,-1,-1
-..\data\instances\instance_0116_131940_Z2.txt,..\data\solutions\instance_0116_131940_Z2_sol.txt,-1,-1,-1
+..\data\instances\instance_0116_131933_Z2.txt,..\data\solutions\instance_0116_131933_Z2_sol.txt,9,51,2839.8
+..\data\instances\instance_0116_131936_Z1.txt,..\data\solutions\instance_0116_131936_Z1_sol.txt,35,210,10584.5
+..\data\instances\instance_0116_131936_Z2.txt,..\data\solutions\instance_0116_131936_Z2_sol.txt,20,116,7421.6
+..\data\instances\instance_0116_131940_Z1.txt,..\data\solutions\instance_0116_131940_Z1_sol.txt,5,29,1065.8
+..\data\instances\instance_0116_131940_Z2.txt,..\data\solutions\instance_0116_131940_Z2_sol.txt,3,13,732.6
