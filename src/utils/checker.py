@@ -69,6 +69,9 @@ def get_checker_data(instance_file: Path, solution_file: Path) -> tuple[int, int
 
     stdout, stderr = process.communicate()
 
+    print(f"instance file: {instance_file}")
+    print(f"solution file: {solution_file}")
+
     print(stdout)
 
     if "FAILED" in stdout:
@@ -78,7 +81,7 @@ def get_checker_data(instance_file: Path, solution_file: Path) -> tuple[int, int
     # Parse checker output
     number_of_trolleys, number_of_boxes, total_distance = _parse_stdout(stdout)
 
-    print(f"Checker results: {number_of_trolleys=}, {number_of_boxes=}, {total_distance=}")
+    print(f"Checker results: {number_of_trolleys=}, {number_of_boxes=}, {total_distance=}\n\n")
     return number_of_trolleys, number_of_boxes, total_distance
 
 
