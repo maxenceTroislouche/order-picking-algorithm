@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Type
 
+from src.models.trolley import Trolley
 from src.modules.check_boxes_are_valid.base import BaseCheckBoxesAreValidModule
 from src.modules.check_boxes_are_valid.check_boxes_module import CheckBoxesModule
 from src.modules.check_trolleys_are_valid.base import BaseCheckTrolleysAreValidModule
@@ -15,7 +16,12 @@ from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 from src.modules.organise_trolleys.dummy import DummyOrganiseTrolleysModule
 from src.utils.checker import get_checker_data, write_results
 from src.utils.instance import get_instance_files, get_solution_file_path
+from src.models.box import Box
 
+def reset_state():
+    Box.BOX_ID_COUNTER = 1
+    Trolley.TROLLEY_ID_COUNTER = 1
+    ExportSolutionModule.file_string = []
 
 def execute_workflow_dummy(instance_file_path: Path, solution_file_path: Path):
     instance_data = InstanceParserModule(instance_file_path).run()
@@ -62,6 +68,10 @@ if __name__ == '__main__':
         # create solution file path from instance file path
         solution_file = get_solution_file_path(SOLUTION_DIRECTORY, instance_file)
         instance_and_solution_files.append((instance_file, solution_file))
+
+        # reset counters
+        Box.BOX_ID_COUNTER = 1
+        ExportSolutionModule.file_string = []
 
         # execute workflow for each instance file
         execute_workflow_dummy(instance_file, solution_file)
