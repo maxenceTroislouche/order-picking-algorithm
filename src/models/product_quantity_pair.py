@@ -14,3 +14,11 @@ class ProductQuantityPair:
 
     def __eq__(self, other):
         return self.product == other.product and self.quantity == other.quantity
+
+    @staticmethod
+    def flatten_product_quantity_pairs_list(product_quantity_pairs: list["ProductQuantityPair"]) -> list[Product]:
+        new_list = []
+        for product_quantity_pair in product_quantity_pairs:
+            for _ in range(product_quantity_pair.quantity):
+                new_list.append(product_quantity_pair.product)
+        return new_list

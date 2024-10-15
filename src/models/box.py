@@ -1,4 +1,5 @@
 from src.models.order import Order
+from src.models.product import Product
 from src.models.product_quantity_pair import ProductQuantityPair
 
 
@@ -40,3 +41,11 @@ class Box:
 
         raise ValueError(f'Product {product_quantity_pair.product} not found in box {self}')
 
+    def add_product(self, product: Product):
+        for product_quantity_pair in self.product_quantity_pairs:
+            if product_quantity_pair.product.product_id == product.product_id:
+                product_quantity_pair.quantity += 1
+                self.used_volume += product.volume
+                self.used_weight += product.weight
+                return
+        self.add_product_quantity_pair(ProductQuantityPair(product, 1))
