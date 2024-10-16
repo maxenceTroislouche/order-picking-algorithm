@@ -13,6 +13,7 @@ from src.modules.instance_parser.instance_parser import InstanceParserModule
 from src.modules.organise_boxes.OrganiseBoxesDummy import OrganiseBoxesDummy
 from src.modules.organise_boxes.OrganiseBoxesDummyV2 import OrganiseBoxesDummyV2
 from src.modules.organise_boxes.OrganiseBoxesPSO import OrganiseBoxesPSO
+from src.modules.organise_boxes.OrganiseBoxesPSOV2 import OrganiseBoxesPSOV2
 from src.modules.organise_boxes.base import BaseOrganiseBoxesModule
 from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 from src.modules.organise_trolleys.dummy import DummyOrganiseTrolleysModule
@@ -43,7 +44,7 @@ def execute_workflow_dummyV2(instance_file_path: Path, solution_file_path: Path)
 
 def execute_workflow_PSO(instance_file_path: Path, solution_file_path: Path):
     instance_data = InstanceParserModule(instance_file_path).run()
-    boxes = OrganiseBoxesPSO(instance_data).run()
+    boxes = OrganiseBoxesPSOV2(instance_data).run()
     CheckBoxesModule(instance_data, boxes).run()
     trolleys = DummyOrganiseTrolleysModule(instance_data, boxes).run()
     CheckTrolleysModule(instance_data, boxes, trolleys).run()
@@ -74,10 +75,10 @@ def execute_workflow(
 
 
 if __name__ == '__main__':
-    INSTANCE_DIRECTORY = Path('C:/Users/mathi/Documents/TRAVAIL/IG2I/S9/Recherche Informatique/instances/instances')
-    #INSTANCE_DIRECTORY = Path('../data/instances')
+    #INSTANCE_DIRECTORY = Path('C:/Users/mathi/Documents/TRAVAIL/IG2I/S9/Recherche Informatique/instances/instances')
+    INSTANCE_DIRECTORY = Path('../data/instances')
     SOLUTION_DIRECTORY = Path('../data/solutions')
-    RESULT_FILE = Path('results_dummyBoxesV2_15_10_2132.csv')
+    RESULT_FILE = Path('results_dummyV2_16_10_1214.csv')
 
     # list instances files
     instance_files = get_instance_files(INSTANCE_DIRECTORY)
@@ -93,17 +94,18 @@ if __name__ == '__main__':
         ExportSolutionModule.file_string = []
 
         # execute workflow for each instance file
-        try :
-            execute_workflow_dummyV2(instance_file, solution_file)
-        except Exception as e:
-            print(f"Error: {e}, instance file: {instance_file}")
+        #try :
+        execute_workflow_PSO(instance_file, solution_file)
+        #execute_workflow_dummyV2(instance_file, solution_file)
+        #except Exception as e:
+        #    print(f"Error: {e}, instance file: {instance_file}")
 
 
     checker_data = []
 
     for instance_file, solution_file in instance_and_solution_files:
         # check each solution file
-        number_of_trolleys, number_of_boxes, total_distance = get_checker_data(instance_file, solution_file)
+        number_of_trolleys, number_of_boxes, total_distance= get_checker_data(instance_file, solution_file)
 
         checker_data.append((instance_file, solution_file, number_of_trolleys, number_of_boxes, total_distance))
 

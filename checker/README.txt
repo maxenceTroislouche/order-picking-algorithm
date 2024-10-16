@@ -36,6 +36,6 @@ Notez bien que dans ce cas, il est impératif que le fichier d'instance se nomme
 - Dans un meme repertoire mettez le checker (CheckerBatchingPicking.jar), les instances et les solution avec les bons formats.
 - Ouvrez une fenêtre de ligne de commande
 - Tapez
-	java -jar CheckerBatchingPicking.jar
+	java -jar CheckerBatchingPicking.jar -d
 	
 

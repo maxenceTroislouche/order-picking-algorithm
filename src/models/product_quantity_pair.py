@@ -21,4 +21,4 @@ class ProductQuantityPair:
         for product_quantity_pair in product_quantity_pairs:
             for _ in range(product_quantity_pair.quantity):
                 new_list.append(product_quantity_pair.product)
-        return new_list
+        return sorted(new_list, key=lambda x: x.product_id)

@@ -49,3 +49,14 @@ class Box:
                 self.used_weight += product.weight
                 return
         self.add_product_quantity_pair(ProductQuantityPair(product, 1))
+
+    def remove_product(self, product):
+        for product_quantity_pair in self.product_quantity_pairs:
+            if product_quantity_pair.product.product_id == product.product_id:
+                product_quantity_pair.quantity -= 1
+                self.used_volume -= product.volume
+                self.used_weight -= product.weight
+                if product_quantity_pair.quantity == 0:
+                    self.product_quantity_pairs.remove(product_quantity_pair)
+                return
+        raise ValueError(f'Product {product} not found in box {self}')
