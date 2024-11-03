@@ -80,6 +80,8 @@ if __name__ == '__main__':
     instance_files = get_instance_files(INSTANCE_DIRECTORY)
     instance_and_solution_files = []
 
+    checker_data = []
+
     for instance_file in instance_files:
         # create solution file path from instance file path
         solution_file = get_solution_file_path(SOLUTION_DIRECTORY, instance_file)
@@ -89,14 +91,18 @@ if __name__ == '__main__':
         Box.BOX_ID_COUNTER = 1
         ExportSolutionModule.file_string = []
 
-        # execute workflow for each instance file
-        execute_workflow_v1(instance_file, solution_file)
-
-    checker_data = []
+        try:
+            # execute workflow for each instance file
+            execute_workflow_v1(instance_file, solution_file)
+        except Exception as e:
+            print(f"Error while processing {instance_file}: {e}")
 
     for instance_file, solution_file in instance_and_solution_files:
         # check each solution file
-        number_of_trolleys, number_of_boxes, total_distance = get_checker_data(instance_file, solution_file)
+        if solution_file.exists():
+            number_of_trolleys, number_of_boxes, total_distance = get_checker_data(instance_file, solution_file)
+        else:
+            number_of_trolleys, number_of_boxes, total_distance = -1, -1, -1
 
         checker_data.append((instance_file, solution_file, number_of_trolleys, number_of_boxes, total_distance))
 
