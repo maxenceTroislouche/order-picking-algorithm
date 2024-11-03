@@ -17,3 +17,4 @@ class Order:
         self.max_number_of_boxes = max_number_of_boxes
         self.number_of_product_types = number_of_product_types
         self.products = products
+

@@ -40,16 +40,18 @@ class CheckBoxesModule(BaseCheckBoxesAreValidModule):
         boxes_by_order = defaultdict(list)
 
         for box in boxes:
-            boxes_by_order[box.order.order_id].append(box)
+            boxes_by_order[box.order_id].append(box)
 
         return boxes_by_order
 
     @staticmethod
     def get_product_quantity_pairs_from_boxes(boxes: List[Box]) -> Dict[int, int]:
-        product_quantity_pairs = defaultdict(int)
+        product_quantity_pairs = {}
 
         for box in boxes:
             for product_quantity_pair in box.product_quantity_pairs:
+                if product_quantity_pair.product.product_id not in product_quantity_pairs:
+                    product_quantity_pairs[product_quantity_pair.product.product_id] = 0
                 product_quantity_pairs[product_quantity_pair.product.product_id] += product_quantity_pair.quantity
 
         return product_quantity_pairs
@@ -57,7 +59,14 @@ class CheckBoxesModule(BaseCheckBoxesAreValidModule):
     def check_order_products_are_in_boxes(self, order: Order, boxes: List[Box]):
         product_quantity_pairs = self.get_product_quantity_pairs_from_boxes(boxes)
 
+        print(f"product_quantity_pairs : {product_quantity_pairs}")
+
         if len(product_quantity_pairs) != order.number_of_product_types:
+            print(f"")
+            print(f"product_quantity_pairs: {sorted(product_quantity_pairs.keys())}")
+            print(f"order: {sorted(order.products, key=lambda x: x.product.product_id)}")
+            print(f"orders: {self.instance_data.orders}")
+            print(f"boxes: {self.boxes}")
             raise CheckBoxesModuleException(f"Order {order.order_id} is not fulfilled")
 
         # Check that the quantity of each product in the order is the same as the quantity of the product in the boxes

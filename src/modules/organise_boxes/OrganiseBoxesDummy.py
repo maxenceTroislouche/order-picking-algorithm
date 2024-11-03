@@ -28,4 +28,3 @@ class OrganiseBoxesDummy(BaseOrganiseBoxesModule):
                 order_boxes[i_box].add_product_quantity_pair(order_product_quantity_pair)
             boxes.extend(order_boxes)
         return boxes
-

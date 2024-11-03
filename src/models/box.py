@@ -1,4 +1,5 @@
 from src.models.order import Order
+from src.models.product import Product
 from src.models.product_quantity_pair import ProductQuantityPair
 
 
@@ -10,12 +11,14 @@ class Box:
 
     id: int
     order: Order
+    order_id: int
     product_quantity_pairs: list[ProductQuantityPair]
     used_volume: int
     used_weight: int
 
     def __init__(self, order: Order, product_quantity_pairs: list[ProductQuantityPair] = None):
         self.id = Box.BOX_ID_COUNTER
+        self.order_id = order.order_id
         Box.BOX_ID_COUNTER += 1
         self.order = order
         # Si product_quantity_pairs est None, on l'initialise à une liste vide
@@ -40,3 +43,12 @@ class Box:
 
         raise ValueError(f'Product {product_quantity_pair.product} not found in box {self}')
 
+    def add_product(self, product: Product):
+        for product_quantity_pair in self.product_quantity_pairs:
+            if product_quantity_pair.product == product:
+                product_quantity_pair.quantity += 1
+                self.used_volume += product.volume
+                self.used_weight += product.weight
+                return
+
+        self.add_product_quantity_pair(ProductQuantityPair(product, 1))
