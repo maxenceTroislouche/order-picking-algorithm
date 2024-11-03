@@ -25,39 +25,37 @@ class OrganiseBoxesV1(BaseOrganiseBoxesModule):
         """
         return sorted(products, key=lambda product: product.location_id)
 
+    def get_distance_between_localisation_id(self, localisation_id1: int, localisation_id2: int) -> int:
+        if localisation_id1 == localisation_id2:
+            return 0
+
+        for shortest_path in self.instance_data.shortest_paths:
+            if (shortest_path.start_localisation_id == localisation_id1 and
+                    shortest_path.end_localisation_id == localisation_id2):
+                return shortest_path.distance
+
+        raise ValueError(f"Shortest path between localisation {localisation_id1} and {localisation_id2} not found")
+
     def sort_list_by_distance(self, list_to_sort: list, product: Product, max_distance: int) -> list:
         """
         Sort a list of products by distance from a product
         """
-
-        def get_distance_between_localisation_id(localisation_id1: int, localisation_id2: int) -> int:
-            if localisation_id1 == localisation_id2:
-                return 0
-
-            for shortest_path in self.instance_data.shortest_paths:
-                if (shortest_path.start_localisation_id == localisation_id1 and
-                        shortest_path.end_localisation_id == localisation_id2):
-                    return shortest_path.distance
-
-            raise ValueError(f"Shortest path between localisation {localisation_id1} and {localisation_id2} not found")
-
-        l = sorted(list_to_sort, key=lambda p: get_distance_between_localisation_id(product.location_id,
-                                                                                    p["product"].location_id))
-        return filter(lambda p: get_distance_between_localisation_id(product.location_id,
-                                                                     p["product"].location_id) <= max_distance, l)
+        l = sorted(list_to_sort, key=lambda p: self.get_distance_between_localisation_id(product.location_id,
+                                                                                         p["product"].location_id))
+        return filter(lambda p: self.get_distance_between_localisation_id(product.location_id,
+                                                                          p["product"].location_id) <= max_distance, l)
 
     def run(self) -> list[Box]:
         list_of_boxes = []
 
-        max_distance_default = 1000
-
         # for each order, create a list of boxes
         for order in self.instance_data.orders:
-            max_distance = max_distance_default
-
             # sort the list of products from localisation
             flatten_product_quantity_pairs_list = self.flatten_product_quantity_pairs_list(order.products)
             list_of_products = self.sort_products_by_localisation(flatten_product_quantity_pairs_list)
+
+            max_distance = self.get_distance_between_localisation_id(list_of_products[0].location_id, list_of_products[
+                -1].location_id) / order.max_number_of_boxes * 2
 
             valid = False
             while not valid:

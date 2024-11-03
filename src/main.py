@@ -72,8 +72,8 @@ def execute_workflow(
 
 
 if __name__ == '__main__':
-    INSTANCE_DIRECTORY = Path('../data/instances')
-    SOLUTION_DIRECTORY = Path('../data/solutions')
+    INSTANCE_DIRECTORY = Path('../instances')
+    SOLUTION_DIRECTORY = Path('../solutions')
     RESULT_FILE = Path('results_dummy.csv')
 
     # list instances files
