@@ -14,3 +14,9 @@ class ProductQuantityPair:
 
     def __eq__(self, other):
         return self.product == other.product and self.quantity == other.quantity
+
+    def __str__(self):
+        return f'{self.product.product_id} x{self.quantity}'
+
+    def __repr__(self):
+        return self.__str__()
