@@ -63,16 +63,9 @@ def get_checker_data(instance_file: Path, solution_file: Path) -> tuple[int, int
     # Run checker
     command = ['java', '-jar', '../checker/CheckerBatchingPicking.jar', '../checker/instance']
 
-    print(f"Executing command : {' '.join(command)}")
-
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
     stdout, stderr = process.communicate()
-
-    print(f"instance file: {instance_file}")
-    print(f"solution file: {solution_file}")
-
-    print(stdout)
 
     if "FAILED" in stdout:
         return -1, -1, -1
@@ -81,7 +74,6 @@ def get_checker_data(instance_file: Path, solution_file: Path) -> tuple[int, int
     # Parse checker output
     number_of_trolleys, number_of_boxes, total_distance = _parse_stdout(stdout)
 
-    print(f"Checker results: {number_of_trolleys=}, {number_of_boxes=}, {total_distance=}\n\n")
     return number_of_trolleys, number_of_boxes, total_distance
 
 

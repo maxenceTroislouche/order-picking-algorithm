@@ -81,8 +81,10 @@ if __name__ == '__main__':
     instance_and_solution_files = []
 
     checker_data = []
-
+    i = 1
     for instance_file in instance_files:
+        print(f"Processing n°{i}: {instance_file}")
+        i += 1
         # create solution file path from instance file path
         solution_file = get_solution_file_path(SOLUTION_DIRECTORY, instance_file)
         instance_and_solution_files.append((instance_file, solution_file))
@@ -97,6 +99,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(f"Error while processing {instance_file}: {e}")
 
+    print("Running checker")
     for instance_file, solution_file in instance_and_solution_files:
         # check each solution file
         if solution_file.exists():
@@ -108,3 +111,4 @@ if __name__ == '__main__':
 
     # store results in a csv file
     write_results(checker_data, Path(RESULT_FILE))
+    print("Results written in results.csv")

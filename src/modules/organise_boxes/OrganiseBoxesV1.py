@@ -64,9 +64,6 @@ class OrganiseBoxesV1(BaseOrganiseBoxesModule):
                 # create a set of selected products indexes
                 selected_products = set()
 
-                print("Order", order.order_id)
-                print("len(list_of_products)", len(list_of_products))
-
                 for i, _ in enumerate(list_of_products):
                     # pick the first product that is not in a box
                     if i in selected_products:
@@ -103,5 +100,4 @@ class OrganiseBoxesV1(BaseOrganiseBoxesModule):
                 else:
                     max_distance *= 2
 
-        print("Number of boxes:", len(list_of_boxes))
         return list_of_boxes

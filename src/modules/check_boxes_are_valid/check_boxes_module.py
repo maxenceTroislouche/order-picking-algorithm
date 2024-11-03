@@ -59,14 +59,7 @@ class CheckBoxesModule(BaseCheckBoxesAreValidModule):
     def check_order_products_are_in_boxes(self, order: Order, boxes: List[Box]):
         product_quantity_pairs = self.get_product_quantity_pairs_from_boxes(boxes)
 
-        print(f"product_quantity_pairs : {product_quantity_pairs}")
-
         if len(product_quantity_pairs) != order.number_of_product_types:
-            print(f"")
-            print(f"product_quantity_pairs: {sorted(product_quantity_pairs.keys())}")
-            print(f"order: {sorted(order.products, key=lambda x: x.product.product_id)}")
-            print(f"orders: {self.instance_data.orders}")
-            print(f"boxes: {self.boxes}")
             raise CheckBoxesModuleException(f"Order {order.order_id} is not fulfilled: expected: {order.number_of_product_types}, got: {len(product_quantity_pairs)}")
 
         # Check that the quantity of each product in the order is the same as the quantity of the product in the boxes
