@@ -36,9 +36,9 @@ class V1OrganiseTrolleysModule(BaseOrganiseTrolleysModule):
         trolleys: list[Trolley] = []
         placed_boxes_indexes: list[int] = []
         current_box_origin: tuple[float, float] = box_centers[0]
-        for box, i in self.boxes:
+        for box in self.boxes:
             # Si le chariot actuel est plein, ajouter un nouveau chariot
-            if len(trolleys[len(trolleys)].boxes) == self.instance_data.number_of_boxes_in_one_trolley:
+            if not trolleys or len(trolleys[-1].boxes) == self.instance_data.number_of_boxes_in_one_trolley:
                 trolleys.append(Trolley([]))
 
             # Pour cette boite, prendre la boite la plus proche de l'origine actuelle
@@ -51,10 +51,10 @@ class V1OrganiseTrolleysModule(BaseOrganiseTrolleysModule):
                 # Si la distance est inférieure à la distance treshold, ajouter la boite au chariot actuel
                 if distance < distance_treshold:
                     placed_boxes_indexes.append(i)
-                    trolleys[len(trolleys)].boxes.append(box)
+                    trolleys[-1].boxes.append(box)
 
                     # Si le chariot actuel est plein, ajouter un nouveau chariot et changer la box origine actuelle
-                    if len(trolleys[len(trolleys)].boxes) == self.instance_data.number_of_boxes_in_one_trolley:
+                    if len(trolleys[-1].boxes) == self.instance_data.number_of_boxes_in_one_trolley:
                         trolleys.append(Trolley([]))
                         current_box_origin = box_centers[i + 1]
 

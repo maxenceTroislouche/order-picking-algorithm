@@ -15,6 +15,7 @@ from src.modules.organise_boxes.OrganiseBoxesV1 import OrganiseBoxesV1
 from src.modules.organise_boxes.base import BaseOrganiseBoxesModule
 from src.modules.organise_trolleys.base import BaseOrganiseTrolleysModule
 from src.modules.organise_trolleys.dummy import DummyOrganiseTrolleysModule
+from src.modules.organise_trolleys.dummyv2 import DummyOrganiseTrolleysModuleV2
 from src.utils.checker import get_checker_data, write_results
 from src.utils.instance import get_instance_files, get_solution_file_path
 from src.models.box import Box
@@ -38,10 +39,11 @@ def execute_workflow_dummy(instance_file_path: Path, solution_file_path: Path):
 def execute_workflow_v1(instance_file_path: Path, solution_file_path: Path):
     instance_data = InstanceParserModule(instance_file_path).run()
     boxes = OrganiseBoxesV1(instance_data).run()
-    # CheckBoxesModule(instance_data, boxes).run()
+    CheckBoxesModule(instance_data, boxes).run()
     print("Organisation finished ! ")
-    trolleys = DummyOrganiseTrolleysModule(instance_data, boxes).run()
-    # CheckTrolleysModule(instance_data, boxes, trolleys).run()
+    trolleys = DummyOrganiseTrolleysModuleV2(instance_data, boxes).run()
+    CheckTrolleysModule(instance_data, boxes, trolleys).run()
+    print("Trolleys checked ! ")
     ExportSolutionModule(solution_file_path, instance_data, boxes, trolleys).run()
 
 
@@ -60,6 +62,7 @@ def execute_workflow(
     boxes = organise_boxes_module_cls(instance_data).run()
     # Throws an exception if the boxes are not valid
     check_boxes_are_valid_module_cls(instance_data, boxes).run()
+    print("Organise boxes valid ! ")
 
     trolleys = organise_trolleys_module_cls(instance_data, boxes).run()
     # Throws an exception if the trolleys are not valid
@@ -76,8 +79,6 @@ if __name__ == '__main__':
     # list instances files
     instance_files = get_instance_files(INSTANCE_DIRECTORY)
     instance_and_solution_files = []
-
-    instance_files = instance_files[:3]  # for testing purposes
 
     for instance_file in instance_files:
         # create solution file path from instance file path
